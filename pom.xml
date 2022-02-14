@@ -12,7 +12,7 @@
 	<artifactId>storeit</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>store-it-backend</name>
-	<description>Demo project for Spring Boot</description>
+	<description>An Application to digitize sellers at IITK</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
