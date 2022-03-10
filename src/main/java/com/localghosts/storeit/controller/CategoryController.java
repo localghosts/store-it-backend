@@ -16,6 +16,8 @@ import com.localghosts.storeit.model.Product;
 
 @RestController
 public class CategoryController {
+	
+	/**
 	@Autowired
 	CategoryRepo repo;
 	
@@ -26,7 +28,6 @@ public class CategoryController {
 		repo.save(newcategory);
 		System.out.println(newcategory);
 		return newcategory;
-
 	}
 	
 	@GetMapping("/category")
@@ -57,5 +58,6 @@ public class CategoryController {
 		return savecategory;
 		 
     }
+    */
 
 }

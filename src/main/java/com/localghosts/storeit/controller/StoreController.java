@@ -67,8 +67,9 @@ public class StoreController {
        Store store =  repo.findByStoreslug(storeslug);
        
        if(store != null) {
-    	    store.setStoreslug(store.getStoreslug());
-   			store.setSellerid(store.getSellerid());
+    	//  these fields should be immutable  
+    	//  store.setStoreslug(store.getStoreslug());
+   		//	store.setSellerid(store.getSellerid());
    			store.setStorename(store.getStorename());
            
            if( repo.save(store).getStoreslug().equals(storeslug)) {
@@ -79,13 +80,10 @@ public class StoreController {
     	 
        System.out.println("no prev entry - hence just saving");
        Store storeobj = new Store();
-	   storeobj.setStoreslug(store.getStoreslug());
-	   storeobj.setSellerid(store.getSellerid());
-	   storeobj.setStorename(store.getStorename());
-	   return repo.save(storeobj);
+	   return storeobj;
     }
 	
-	//TODO verification of user of storeslug
+	
 	
 	@GetMapping("/store/{storeslug}/product")
 	public List<Product> getStoresProducts(@PathVariable String storeslug){
@@ -97,7 +95,7 @@ public class StoreController {
 	
 	
 	@PostMapping("/store/{storeslug}/product")
-	public Store addStoreProducts(@RequestBody Product product,@PathVariable String storeslug)
+	public Product addStoreProducts(@RequestBody Product product,@PathVariable String storeslug)
 	{
 		//adding product to the category
 		Product newprod = new Product(product.getName(), product.getPrice() ,product.getCategoryID(),product.isInstock());
@@ -108,10 +106,10 @@ public class StoreController {
 		System.out.println(newprod);
 		
 		//adding product to the store field
-		Store store = repo.findByStoreslug(storeslug);
-		store.getProducts().add(newprod);
-		repo.save(store);
-		return store;
+		//Store store = repo.findByStoreslug(storeslug);
+		//store.getProducts().add(newprod);
+		//repo.save(store);
+		return newprod;
 		
 	}
 

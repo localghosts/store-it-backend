@@ -18,6 +18,7 @@ import com.localghosts.storeit.config.ProductRepo;
 @RestController
 public class ProductController {
 	
+	/**
 	@Autowired
 	ProductRepo repo;
 	
@@ -61,5 +62,5 @@ public class ProductController {
 	   return repo.save(saveprod);   
     }
 
-	
+	*/
 }
