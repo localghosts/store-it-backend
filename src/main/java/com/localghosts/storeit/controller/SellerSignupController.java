@@ -18,7 +18,7 @@ public class SellerSignupController {
 	@Autowired
 	SellerRepo sellerrepo;
 	
-	@RequestMapping("/SellerSignup")
+	@RequestMapping("/seller/signup")
 	public String SellerSignup(Seller seller, String otp) {
 		String email = seller.getEmail();
 		OTP otpentry = otprepo.findByEmail(email);
