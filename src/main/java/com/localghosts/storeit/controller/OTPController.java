@@ -27,7 +27,7 @@ public class OTPController {
 	@Autowired
 	private RandomString rnd;
 	
-	@PostMapping( "/OTP" )
+	@PostMapping( "/otp" )
 	public String getOTP(@RequestBody String email) throws  MessagingException, IOException
 	{
 		System.out.println(email);
