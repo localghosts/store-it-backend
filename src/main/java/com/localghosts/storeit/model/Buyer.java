@@ -10,11 +10,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Buyers")
 public class Buyer {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+
 	@Column(name = "name")
 	private String name;
+	
+	@Id
 	@Column(name = "email")
 	private String email;
 	@Column(name = "password")
@@ -26,18 +26,14 @@ public class Buyer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getId() {
-		return id;
-	}
+	
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public String getName() {
 		return name;
 	}

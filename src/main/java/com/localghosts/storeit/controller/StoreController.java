@@ -83,8 +83,6 @@ public class StoreController {
 	   return storeobj;
     }
 	
-	
-	
 	@GetMapping("/store/{storeslug}/product")
 	public List<Product> getStoresProducts(@PathVariable String storeslug){
 		Store store = repo.findByStoreslug(storeslug);
@@ -92,7 +90,6 @@ public class StoreController {
 		List<Product> productlist =store.getProducts();
 		return productlist;
 	}
-	
 	
 	@PostMapping("/store/{storeslug}/product")
 	public Product addStoreProducts(@RequestBody Product product,@PathVariable String storeslug)
@@ -120,7 +117,6 @@ public class StoreController {
 		return categorylist;
 	}
 	
-	
 	@PostMapping("/store/{storeslug}/category")
 	public Store addStoreCategories(@RequestBody Category category,@PathVariable String storeslug)
 	{
@@ -133,8 +129,6 @@ public class StoreController {
 		return store;
 		
 	}
-	
-	
 	
 	public String makeStorestlug(String storename) {
 		String withoutspaceString = storename.replaceAll("\\s", "");

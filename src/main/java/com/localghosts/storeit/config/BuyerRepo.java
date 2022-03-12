@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.localghosts.storeit.model.Buyer;
 
-public interface BuyerRepo extends JpaRepository<Buyer , Integer> 
+public interface BuyerRepo extends JpaRepository<Buyer , String> 
 {
-	Buyer findById(long id);
+	Buyer findByEmail(String email);
 } 
