@@ -1,22 +1,14 @@
 package com.localghosts.storeit.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class SellerSignup {
 
-@Entity
-@Table(name = "Buyers")
-public class Buyer {
-
-	@Column(name = "name")
 	private String name;
 
-	@Id
-	@Column(name = "email")
 	private String email;
-	@Column(name = "password")
+
 	private String password;
+
+	private String otp;
 
 	public String getPassword() {
 		return password;
@@ -40,5 +32,13 @@ public class Buyer {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setOtp(String otp){
+		this.otp = otp;
+	}
+
+	public String getOtp(){
+		return otp;
 	}
 }

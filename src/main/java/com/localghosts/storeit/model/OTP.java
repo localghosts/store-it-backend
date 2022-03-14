@@ -15,25 +15,25 @@ public class OTP {
 	@Column(name = "otp")
 	private String otp;
 
-	@Column(name = "done")
-	private int done;
+	@Column(name = "used")
+	private boolean used;
 
-	public int getDone() {
-		return done;
+	public boolean getUsed() {
+		return used;
 	}
 
-	public void setDone(int done) {
-		this.done = done;
+	public void setUsed(boolean used) {
+		this.used = used;
 	}
 
 	public OTP() {
 	}
 
-	public OTP(String otp, String email, int done) {
+	public OTP(String otp, String email, boolean used) {
 		super();
 		this.email = email;
 		this.otp = otp;
-		this.done = done;
+		this.used = used;
 	}
 
 	public String getEmail() {

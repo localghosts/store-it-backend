@@ -3,18 +3,17 @@ package com.localghosts.storeit.controller;
 import java.io.IOException;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.localghosts.storeit.config.OTPRepo;
 import com.localghosts.storeit.model.EmailRequest;
 import com.localghosts.storeit.model.OTP;
 import com.localghosts.storeit.model.RandomString;
 import com.localghosts.storeit.service.EmailingService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class OTPController {
@@ -28,21 +27,30 @@ public class OTPController {
 	private RandomString rnd;
 
 	@PostMapping("/otp")
-	public String getOTP(@RequestBody String email) throws MessagingException, IOException {
-		System.out.println(email);
+	public String getOTP(@RequestBody OTP OTPRequest) throws MessagingException, IOException {
+
+		String email = OTPRequest.getEmail();
+
+		if (email == null)
+			throw new Error("Email is null");
+
 		if (repo.findByEmail(email) != null)
-			return "OTP Already Sent";
-		OTP OTPEntry = new OTP(rnd.getAlphaNumericString(6), email, 0);
+			throw new Error("OTP Already Sent");
+
+		OTP OTPEntry = new OTP(rnd.generateOTP(6), email, false);
+
 		EmailRequest emailRequest = new EmailRequest();
 
 		emailRequest.setReceiverEmail(email);
 		emailRequest.setSubject("OTP");
 
-		String message = OTPEntry.getOtp();
+		String message = "Your OTP: " + OTPEntry.getOtp();
 		emailRequest.setMessage(message);
 
 		emailingService.SendMail(emailRequest);
+
 		repo.save(OTPEntry);
+		
 		return "OTP Sent";
 	}
 

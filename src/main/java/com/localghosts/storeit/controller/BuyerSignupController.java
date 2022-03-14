@@ -24,11 +24,11 @@ public class BuyerSignupController {
 		OTP otpentry = otprepo.findByEmail(email);
 		if (otpentry == null)
 			return "OTP generation failed";
-		if (otpentry.getDone() != 0)
+		if (otpentry.getUsed() == true)
 			return "Email Already registered";
 		if (otpentry.getOtp().equals(otp) == false)
 			return "Wrong otp";
-		otpentry.setDone(1);
+		otpentry.setUsed(true);
 		otprepo.save(otpentry);
 		buyerrepo.save(buyer);
 		return "Sign up Successful";

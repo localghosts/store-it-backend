@@ -4,15 +4,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RandomString {
-    public String getAlphaNumericString(int n) {
-        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                + "0123456789"
-                + "abcdefghijklmnopqrstuvxyz";
+
+    private String charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            + "0123456789"
+            + "abcdefghijklmnopqrstuvxyz";
+
+    public String generateOTP(int n) {
         StringBuilder sb = new StringBuilder(n);
+
         for (int i = 0; i < n; i++) {
-            int index = (int) (AlphaNumericString.length() * Math.random());
-            sb.append(AlphaNumericString.charAt(index));
+            int index = (int) (charset.length() * Math.random());
+            sb.append(charset.charAt(index));
         }
+
         return sb.toString();
     }
 }

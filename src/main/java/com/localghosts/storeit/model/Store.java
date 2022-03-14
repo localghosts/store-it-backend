@@ -1,24 +1,16 @@
 package com.localghosts.storeit.model;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "stores")
@@ -41,7 +33,6 @@ public class Store {
 		super();
 		this.storeslug = storeslug;
 		this.storename = storename;
-		// TODO to be extracted from JWT
 		this.products = products;
 		this.categories = categories;
 	}

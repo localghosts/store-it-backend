@@ -1,9 +1,13 @@
 package com.localghosts.storeit.controller;
 
-import java.lang.module.FindException;
 import java.util.List;
 
-import javax.crypto.BadPaddingException;
+import com.localghosts.storeit.config.CategoryRepo;
+import com.localghosts.storeit.config.ProductRepo;
+import com.localghosts.storeit.config.StoreRepo;
+import com.localghosts.storeit.model.Category;
+import com.localghosts.storeit.model.Product;
+import com.localghosts.storeit.model.Store;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,28 +17,21 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.localghosts.storeit.config.CategoryRepo;
-import com.localghosts.storeit.config.ProductRepo;
-import com.localghosts.storeit.config.StoreRepo;
-import com.localghosts.storeit.model.Category;
-import com.localghosts.storeit.model.Product;
-import com.localghosts.storeit.model.Store;
-
 @RestController
 public class StoreController {
 
 	@Autowired
-	StoreRepo repo;
+	StoreRepo storeRepo;
 
 	@Autowired
-	ProductRepo repoproduct;
+	ProductRepo productRepo;
 
 	@Autowired
-	CategoryRepo repocategory;
+	CategoryRepo categoryRepo;
 
 	@GetMapping("/store")
 	public List<Store> getStores() {
-		return repo.findAll();
+		return storeRepo.findAll();
 	}
 
 	@PostMapping("/store")
@@ -46,7 +43,7 @@ public class StoreController {
 		// while loop that computes till a unique storeslug is found
 		while (storecheck != null) {
 			storeslugString += "_";
-			storecheck = repo.findByStoreslug(storeslugString);
+			storecheck = storeRepo.findByStoreslug(storeslugString);
 
 		}
 
@@ -54,7 +51,7 @@ public class StoreController {
 		storeobj.setStoreslug(storeslugString);
 		storeobj.setSeller(store.getSeller());
 		storeobj.setStorename(store.getStorename());
-		repo.save(storeobj);
+		storeRepo.save(storeobj);
 		System.out.println(storeobj);
 		return storeobj;
 	}
@@ -62,7 +59,7 @@ public class StoreController {
 	@PutMapping("/store/{storeslug}")
 	public Store updateorsaveStore(@RequestBody Store newstore, @PathVariable String storeslug) {
 
-		Store store = repo.findByStoreslug(storeslug);
+		Store store = storeRepo.findByStoreslug(storeslug);
 
 		if (store != null) {
 			// these fields should be immutable
@@ -70,7 +67,7 @@ public class StoreController {
 			// store.setSellerid(store.getSellerid());
 			store.setStorename(store.getStorename());
 
-			if (repo.save(store).getStoreslug().equals(storeslug)) {
+			if (storeRepo.save(store).getStoreslug().equals(storeslug)) {
 				System.out.println("Succesfully saved");
 				return store;
 			}
@@ -83,7 +80,7 @@ public class StoreController {
 
 	@GetMapping("/store/{storeslug}/product")
 	public List<Product> getStoresProducts(@PathVariable String storeslug) {
-		Store store = repo.findByStoreslug(storeslug);
+		Store store = storeRepo.findByStoreslug(storeslug);
 
 		List<Product> productlist = store.getProducts();
 		return productlist;
@@ -94,9 +91,9 @@ public class StoreController {
 		// adding product to the category
 		Product newprod = new Product(product.getName(), product.getPrice(), product.getCategoryID(),
 				product.isInstock());
-		Category category = repocategory.findByCategoryID(product.getCategoryID());
+		Category category = categoryRepo.findByCategoryID(product.getCategoryID());
 		category.getProducts().add(newprod);
-		repocategory.save(category);
+		categoryRepo.save(category);
 
 		System.out.println(newprod);
 
@@ -110,7 +107,7 @@ public class StoreController {
 
 	@GetMapping("/store/{storeslug}/category")
 	public List<Category> getStoresCategories(@PathVariable String storeslug) {
-		Store store = repo.findByStoreslug(storeslug);
+		Store store = storeRepo.findByStoreslug(storeslug);
 		List<Category> categorylist = store.getCategories();
 		return categorylist;
 	}
@@ -119,10 +116,10 @@ public class StoreController {
 	public Store addStoreCategories(@RequestBody Category category, @PathVariable String storeslug) {
 		// TODO does it replace all the prev categories
 		Category newcategory = new Category(category.getName(), category.isEnabled());
-		Store store = repo.findByStoreslug(storeslug);
+		Store store = storeRepo.findByStoreslug(storeslug);
 		System.out.println(newcategory);
 		store.getCategories().add(newcategory);
-		repo.save(store);
+		storeRepo.save(store);
 		return store;
 
 	}
