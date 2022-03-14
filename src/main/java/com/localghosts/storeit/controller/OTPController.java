@@ -1,6 +1,7 @@
 package com.localghosts.storeit.controller;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.mail.MessagingException;
 
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OTPController {
 	@Autowired
-	OTPRepo repo;
+	OTPRepo otpRepo;
 
 	@Autowired
 	private EmailingService emailingService;
@@ -28,13 +29,15 @@ public class OTPController {
 
 	@PostMapping("/otp")
 	public String getOTP(@RequestBody OTP OTPRequest) throws MessagingException, IOException {
+		if (Objects.isNull(OTPRequest.getEmail()) || OTPRequest.getEmail().isEmpty())
+			throw new Error("Please provide a valid email address");
 
 		String email = OTPRequest.getEmail();
 
 		if (email == null)
 			throw new Error("Email is null");
 
-		if (repo.findByEmail(email) != null)
+		if (otpRepo.findByEmail(email) != null)
 			throw new Error("OTP Already Sent");
 
 		OTP OTPEntry = new OTP(rnd.generateOTP(6), email, false);
@@ -49,8 +52,8 @@ public class OTPController {
 
 		emailingService.SendMail(emailRequest);
 
-		repo.save(OTPEntry);
-		
+		otpRepo.save(OTPEntry);
+
 		return "OTP Sent";
 	}
 
