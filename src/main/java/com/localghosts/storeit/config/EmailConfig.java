@@ -32,7 +32,7 @@ public class EmailConfig implements Serializable {
 	}
 
 	public Session getSession() {
-		String emailID = emailUsername+"@gmail.com";
+		String emailID = emailUsername + "@gmail.com";
 
 		Properties props = emailConfiguration();
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {

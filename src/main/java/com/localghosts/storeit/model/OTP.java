@@ -11,28 +11,30 @@ public class OTP {
 	@Id
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "otp")
 	private String otp;
-	
+
 	@Column(name = "done")
 	private int done;
 
-    public int getDone() {
+	public int getDone() {
 		return done;
 	}
 
 	public void setDone(int done) {
 		this.done = done;
 	}
-	public OTP( ) {}
-	
-	public OTP(String otp, String email, int done)	{
-    	super();
-    	this.email = email;
-    	this.otp = otp;
-    	this.done = done;
-    }
+
+	public OTP() {
+	}
+
+	public OTP(String otp, String email, int done) {
+		super();
+		this.email = email;
+		this.otp = otp;
+		this.done = done;
+	}
 
 	public String getEmail() {
 		return email;

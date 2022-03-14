@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import com.localghosts.storeit.model.Product;
 import com.localghosts.storeit.model.*;
 
-
-public interface StoreRepo extends JpaRepository<Store , String> 
-{
+public interface StoreRepo extends JpaRepository<Store, String> {
 	Store findByStoreslug(String storeslug);
 }

@@ -23,40 +23,35 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "stores")
 public class Store {
-	
+
 	@Id
-	@Column(name="storeslug")
+	@Column(name = "storeslug")
 	private String storeslug;
-	
-	@Column(name="storename")
+
+	@Column(name = "storename")
 	private String storename;
-	
-	@Column(name="sellerid")
-	private int sellerid;
-	
-	
-	
-	public Store() {}
 
+	@OneToOne(mappedBy = "store", cascade = CascadeType.ALL)
+	private Seller seller;
 
+	public Store() {
+	}
 
-	public Store(String storeslug, String storename, int sellerid, List<Product> products, List<Category> categories) {
+	public Store(String storeslug, String storename, List<Product> products, List<Category> categories) {
 		super();
 		this.storeslug = storeslug;
 		this.storename = storename;
-		//TODO to be extracted from JWT
-		this.sellerid = sellerid;
+		// TODO to be extracted from JWT
 		this.products = products;
 		this.categories = categories;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "product_store_fk", referencedColumnName = "storeslug")
+	private List<Product> products = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="product_store_fk" , referencedColumnName = "storeslug")
-	private List<Product> products = new ArrayList<>();
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="category_store_fk" , referencedColumnName = "storeslug")
+	@JoinColumn(name = "category_store_fk", referencedColumnName = "storeslug")
 	private List<Category> categories = new ArrayList<>();
 
 	public String getStoreslug() {
@@ -75,14 +70,6 @@ public class Store {
 		this.storename = storename;
 	}
 
-	public int getSellerid() {
-		return sellerid;
-	}
-
-	public void setSellerid(int sellerid) {
-		this.sellerid = sellerid;
-	}
-
 	public List<Product> getProducts() {
 		return products;
 	}
@@ -99,12 +86,11 @@ public class Store {
 		this.categories = categories;
 	}
 
-	
+	public Seller getSeller() {
+		return seller;
+	}
 
-	
-	
-	
-	
-	
-
+	public void setSeller(Seller seller) {
+		this.seller = seller;
+	}
 }

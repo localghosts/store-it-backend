@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 import com.localghosts.storeit.model.Product;
 import com.localghosts.storeit.model.*;
 
-
-public interface ProductRepo extends JpaRepository<Product , Integer> {
+public interface ProductRepo extends JpaRepository<Product, Integer> {
 	Product findByProductID(long Id);
 
 }

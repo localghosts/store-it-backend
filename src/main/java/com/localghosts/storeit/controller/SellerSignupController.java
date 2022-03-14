@@ -11,22 +11,22 @@ import com.localghosts.storeit.model.Seller;
 
 @RestController
 public class SellerSignupController {
-	
+
 	@Autowired
 	OTPRepo otprepo;
-	
+
 	@Autowired
 	SellerRepo sellerrepo;
-	
+
 	@RequestMapping("/seller/signup")
 	public String SellerSignup(Seller seller, String otp) {
 		String email = seller.getEmail();
 		OTP otpentry = otprepo.findByEmail(email);
-		if(otpentry == null)
+		if (otpentry == null)
 			return "OTP generation failed";
-		if(otpentry.getDone() != 0)
+		if (otpentry.getDone() != 0)
 			return "Email Already registered";
-		if(otpentry.getOtp().equals(otp) == false)
+		if (otpentry.getOtp().equals(otp) == false)
 			return "Wrong otp";
 		otpentry.setDone(1);
 		otprepo.save(otpentry);

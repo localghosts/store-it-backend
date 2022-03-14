@@ -20,18 +20,17 @@ import com.localghosts.storeit.service.EmailingService;
 public class OTPController {
 	@Autowired
 	OTPRepo repo;
-	
+
 	@Autowired
 	private EmailingService emailingService;
-	
+
 	@Autowired
 	private RandomString rnd;
-	
-	@PostMapping( "/otp" )
-	public String getOTP(@RequestBody String email) throws  MessagingException, IOException
-	{
+
+	@PostMapping("/otp")
+	public String getOTP(@RequestBody String email) throws MessagingException, IOException {
 		System.out.println(email);
-		if(repo.findByEmail(email) != null) 
+		if (repo.findByEmail(email) != null)
 			return "OTP Already Sent";
 		OTP OTPEntry = new OTP(rnd.getAlphaNumericString(6), email, 0);
 		EmailRequest emailRequest = new EmailRequest();
@@ -46,6 +45,5 @@ public class OTPController {
 		repo.save(OTPEntry);
 		return "OTP Sent";
 	}
-	
-	
+
 }

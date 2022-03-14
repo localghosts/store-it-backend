@@ -49,8 +49,4 @@ public class EmailingService {
 		Transport.send(msg);
 	}
 
-
-
-
-
 }
