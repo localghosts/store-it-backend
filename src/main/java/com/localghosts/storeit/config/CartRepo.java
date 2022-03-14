@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CartRepo extends JpaRepository<Cart, Long> {
 	Cart findByCartID(Long id);
+
 	List<Cart> findByBuyerAndStore(Buyer buyer, Store store);
+
 	Cart findTop1ByBuyerAndStoreAndProduct(Buyer buyer, Store store, Product product);
 }

@@ -34,11 +34,11 @@ public class SellerSignup {
 		this.name = name;
 	}
 
-	public void setOtp(String otp){
+	public void setOtp(String otp) {
 		this.otp = otp;
 	}
 
-	public String getOtp(){
+	public String getOtp() {
 		return otp;
 	}
 }
