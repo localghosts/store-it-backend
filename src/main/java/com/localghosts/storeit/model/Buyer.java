@@ -25,6 +25,9 @@ public class Buyer {
 	@OneToMany(mappedBy = "buyer")
 	private List<Cart> carts;
 
+	@OneToMany(mappedBy = "orders")
+	private List<Order> orders;
+	
 	public String getPassword() {
 		return password;
 	}
@@ -61,6 +64,21 @@ public class Buyer {
      */
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
+    }
+
+
+    /**
+     * @return List<Order> return the orders
+     */
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    /**
+     * @param orders the orders to set
+     */
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
 }
