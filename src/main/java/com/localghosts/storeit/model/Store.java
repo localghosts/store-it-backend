@@ -34,6 +34,8 @@ public class Store {
 	@Column(name="sellerid")
 	private int sellerid;
 	
+	
+	
 	public Store() {}
 
 

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.localghosts.storeit.model.Buyer;
 import com.localghosts.storeit.model.Seller;
 
-public interface SellerRepo extends JpaRepository<Seller , Integer> 
+public interface SellerRepo extends JpaRepository<Seller , String> 
 {
-	Buyer findById(long id);
+	Seller findByEmail(String email);
 } 
