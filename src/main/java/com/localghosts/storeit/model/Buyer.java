@@ -1,22 +1,29 @@
 package com.localghosts.storeit.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Buyers")
 public class Buyer {
 
-	@Column(name = "name")
-	private String name;
-
 	@Id
 	@Column(name = "email")
 	private String email;
+
+	@Column(name = "name")
+	private String name;
+
 	@Column(name = "password")
 	private String password;
+
+	@OneToMany(mappedBy = "buyer")
+	private List<Cart> carts;
 
 	public String getPassword() {
 		return password;
@@ -41,4 +48,19 @@ public class Buyer {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    /**
+     * @return List<Cart> return the carts
+     */
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    /**
+     * @param carts the carts to set
+     */
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
+
 }

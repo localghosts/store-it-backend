@@ -27,13 +27,7 @@ public class Product {
 	@Column(name = "instock")
 	private boolean instock;
 
-	public Product() {/**
-						 * this.name = "na";
-						 * this.price = 0;
-						 * this.category = "naa";
-						 * this.store = "na";
-						 * this.inStock = false;
-						 */
+	public Product() {
 	}
 
 	public Product(String name, int price, int categoryID, boolean instock) {
