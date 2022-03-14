@@ -51,4 +51,12 @@ public class OTP {
 	public void setOtp(String otp) {
 		this.otp = otp;
 	}
+
+    /**
+     * @return boolean return the used
+     */
+    public boolean isUsed() {
+        return used;
+    }
+
 }

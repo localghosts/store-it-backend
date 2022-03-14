@@ -25,7 +25,7 @@ public class Buyer {
 	@OneToMany(mappedBy = "buyer")
 	private List<Cart> carts;
 
-	@OneToMany(mappedBy = "orders")
+	@OneToMany(mappedBy = "buyer")
 	private List<Order> orders;
 
 	public String getPassword() {

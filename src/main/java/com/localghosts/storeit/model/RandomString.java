@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RandomString {
 
-    private String charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    final String charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             + "0123456789"
             + "abcdefghijklmnopqrstuvxyz";
 
