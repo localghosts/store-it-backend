@@ -1,9 +1,11 @@
 package com.localghosts.storeit.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.localghosts.storeit.config.BuyerRepo;
 import com.localghosts.storeit.config.CartRepo;
+import com.localghosts.storeit.config.OrderItemRepo;
 import com.localghosts.storeit.config.OrderRepo;
 import com.localghosts.storeit.config.ProductRepo;
 import com.localghosts.storeit.config.StoreRepo;
@@ -11,6 +13,7 @@ import com.localghosts.storeit.model.Buyer;
 import com.localghosts.storeit.model.Cart;
 import com.localghosts.storeit.model.CartResponse;
 import com.localghosts.storeit.model.Order;
+import com.localghosts.storeit.model.OrderItem;
 import com.localghosts.storeit.model.Product;
 import com.localghosts.storeit.model.Store;
 
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,6 +43,9 @@ public class CartController {
 
 	@Autowired
 	OrderRepo orderRepo;
+
+	@Autowired
+	OrderItemRepo orderItemRepo;
 
 	@PostMapping("/store/{storeslug}/cart/{productid}/{quantity}")
 	public String addToCart(@PathVariable("storeslug") String storeslug, @PathVariable("productid") Long productid,
@@ -84,7 +91,8 @@ public class CartController {
 	}
 
 	@PostMapping("/store/{storeslug}/checkout")
-	public String checkout(@PathVariable("storeslug") String storeslug, Authentication auth) {
+	public String checkout(@RequestBody Order orderrequest, @PathVariable("storeslug") String storeslug,
+			Authentication auth) {
 		Buyer buyer = buyerRepo.findByEmail(auth.getName());
 		Store store = storeRepo.findByStoreslug(storeslug);
 
@@ -93,10 +101,10 @@ public class CartController {
 
 		List<Cart> cartlist = cartRepo.findByBuyerAndStore(buyer, store);
 
-		for (Cart cart : cartlist) {
-			orderRepo.save(new Order(cart));
-			cartRepo.delete(cart);
-		}
+		List<OrderItem> orderItems = cartlist.stream().map(cart -> new OrderItem(cart)).collect(Collectors.toList());
+		Order order = new Order(buyer, store, orderrequest.getAddress(), orderItems);
+
+		orderRepo.save(order);
 
 		return "Order placed successfully";
 	}

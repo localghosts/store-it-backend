@@ -2,7 +2,9 @@ package com.localghosts.storeit.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -32,9 +35,13 @@ public class Order implements Serializable {
     @JoinColumn(name = "StoreID", nullable = false)
     private Store store;
 
-    private String productName;
-    private int productPrice;
-    private int quantity;
+    @Column(name = "address")
+    private String address;
+
+    @OneToMany
+    private List<OrderItem> orderItems;
+
+    @Column(name = "timestamp")
     private Date orderDate;
 
     public enum Status {
@@ -46,14 +53,21 @@ public class Order implements Serializable {
         DELIVERED
     }
 
+    @Column(name = "status")
     private Status status;
 
-    public Order(Buyer buyer, Store store, String productName, int productPrice, int quantity) {
+    public Order(Buyer buyer, Store store, String address, List<OrderItem> orderItems) {
         this.buyer = buyer;
         this.store = store;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.quantity = quantity;
+        this.address = address;
+        this.orderItems = orderItems;
+        this.orderDate = new Date();
+        this.status = Status.PLACED;
+    }
+
+    public Order(Buyer buyer, Store store, String address) {
+        this.buyer = buyer;
+        this.store = store;
         this.orderDate = new Date();
         this.status = Status.PLACED;
     }
@@ -64,9 +78,6 @@ public class Order implements Serializable {
     public Order(Cart cart) {
         this.buyer = cart.getBuyer();
         this.store = cart.getStore();
-        this.productName = cart.getProduct().getName();
-        this.productPrice = cart.getProduct().getPrice();
-        this.quantity = cart.getQuantity();
         this.orderDate = new Date();
         this.status = Status.PLACED;
     }
@@ -114,48 +125,6 @@ public class Order implements Serializable {
     }
 
     /**
-     * @return String return the productName
-     */
-    public String getProductName() {
-        return productName;
-    }
-
-    /**
-     * @param productName the productName to set
-     */
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    /**
-     * @return int return the productPrice
-     */
-    public int getProductPrice() {
-        return productPrice;
-    }
-
-    /**
-     * @param productPrice the productPrice to set
-     */
-    public void setProductPrice(int productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    /**
-     * @return int return the quantity
-     */
-    public int getQuantity() {
-        return quantity;
-    }
-
-    /**
-     * @param quantity the quantity to set
-     */
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    /**
      * @return Date return the orderDate
      */
     public Date getOrderDate() {
@@ -189,6 +158,34 @@ public class Order implements Serializable {
 
     public void setStatus() {
         this.status = Status.ACCEPTED;
+    }
+
+    /**
+     * @return String return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * @return List<OrderItem> return the orderItems
+     */
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    /**
+     * @param orderItems the orderItems to set
+     */
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
 }
