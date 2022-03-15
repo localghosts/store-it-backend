@@ -40,6 +40,7 @@ public class Order implements Serializable {
     public enum Status {
         PLACED,
         ACCEPTED,
+        REJECTED,
         PROCESSING,
         OUT_FOR_DELIVERY,
         DELIVERED

@@ -12,11 +12,13 @@ import com.localghosts.storeit.model.RandomString;
 import com.localghosts.storeit.service.EmailingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin()
 public class OTPController {
 	@Autowired
 	OTPRepo otpRepo;
