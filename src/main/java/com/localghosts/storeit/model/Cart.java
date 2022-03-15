@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -22,12 +23,12 @@ public class Cart implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long cartID;
 
-    @JsonIgnoreProperties({ "carts", "hibernateLazyInitializer", "handler" })
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buyerID", nullable = false)
     private Buyer buyer;
 
-    @JsonIgnoreProperties({ "carts", "hibernateLazyInitializer", "handler" })
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "StoreID", nullable = false)
     private Store store;

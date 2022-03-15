@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "stores")
@@ -25,12 +25,26 @@ public class Store implements Serializable {
     @Column(name = "storename")
     private String storename;
 
-    @JsonIgnoreProperties("store")
+    @Column(name = "storelogo")
+    private String storelogo;
+
+    @Column(name = "storebanner")
+    private String storebanner;
+
+    public Store(String storeslug, String storename, String storelogo, String storebanner, Seller seller) {
+        this.storeslug = storeslug;
+        this.storename = storename;
+        this.storelogo = storelogo;
+        this.storebanner = storebanner;
+        this.seller = seller;
+    }
+
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "seller", referencedColumnName = "email")
     private Seller seller;
 
-    @JsonIgnoreProperties("store")
+    @JsonIgnore
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Category> categories;
 
@@ -98,4 +112,33 @@ public class Store implements Serializable {
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
+
+    /**
+     * @return String return the storelogo
+     */
+    public String getStorelogo() {
+        return storelogo;
+    }
+
+    /**
+     * @param storelogo the storelogo to set
+     */
+    public void setStorelogo(String storelogo) {
+        this.storelogo = storelogo;
+    }
+
+    /**
+     * @return String return the storebanner
+     */
+    public String getStorebanner() {
+        return storebanner;
+    }
+
+    /**
+     * @param storebanner the storebanner to set
+     */
+    public void setStorebanner(String storebanner) {
+        this.storebanner = storebanner;
+    }
+
 }

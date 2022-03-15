@@ -19,7 +19,7 @@ public class BuyerSignup {
 
 	public BuyerSignup() {
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}

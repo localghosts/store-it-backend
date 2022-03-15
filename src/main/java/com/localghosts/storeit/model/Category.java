@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -31,10 +32,20 @@ public class Category implements Serializable {
 	@Column(name = "enabled")
 	private boolean enabled;
 
-	@JsonIgnoreProperties({ "categories", "hibernateLazyInitializer", "handler" })
+	@Column(name = "image")
+	private String image;
+
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "store", nullable = false)
 	private Store store;
+
+	public Category(String name, String image, Store store) {
+		this.name = name;
+		this.image = image;
+		this.store = store;
+		this.enabled = true;
+	}
 
 	@JsonIgnoreProperties("category")
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
@@ -100,6 +111,20 @@ public class Category implements Serializable {
 	 */
 	public void setStore(Store store) {
 		this.store = store;
+	}
+
+	/**
+	 * @return String return the image
+	 */
+	public String getImage() {
+		return image;
+	}
+
+	/**
+	 * @param image the image to set
+	 */
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }

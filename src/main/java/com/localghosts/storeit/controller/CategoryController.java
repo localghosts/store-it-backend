@@ -36,12 +36,14 @@ public class CategoryController {
 	public void addCategory(@RequestBody Category category, @PathVariable String storeslug) {
 		if (Objects.isNull(category.getName()))
 			throw new Error("Invalid category name");
+		if (Objects.isNull(category.getImage()))
+			throw new Error("Invalid category image");
 
 		Store store = storeRepo.findByStoreslug(storeslug);
 
 		List<Category> existing = categoryRepo.findByStoreAndName(store, category.getName());
 		if (existing == null || existing.isEmpty()) {
-			Category newCategory = new Category(category.getName(), store);
+			Category newCategory = new Category(category.getName(), category.getImage(), store);
 			categoryRepo.save(newCategory);
 		} else {
 			throw new Error("Category already exist");

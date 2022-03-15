@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "products")
@@ -28,7 +28,7 @@ public class Product implements Serializable {
 	@Column(name = "price")
 	private int price;
 
-	@JsonIgnoreProperties({ "products", "hibernateLazyInitializer", "handler" })
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category", nullable = false)
 	private Category category;
