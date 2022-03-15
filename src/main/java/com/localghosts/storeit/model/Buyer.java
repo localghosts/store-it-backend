@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "Buyers")
 public class Buyer implements Serializable {
 
-	
 	@Id
 	@Column(name = "email")
 	private String email;

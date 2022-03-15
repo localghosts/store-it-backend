@@ -54,11 +54,11 @@ public class OTP implements Serializable {
 		this.otp = otp;
 	}
 
-    /**
-     * @return boolean return the used
-     */
-    public boolean isUsed() {
-        return used;
-    }
+	/**
+	 * @return boolean return the used
+	 */
+	public boolean isUsed() {
+		return used;
+	}
 
 }
