@@ -11,10 +11,24 @@ public class JwtResponse implements Serializable {
 	}
 
 	public JwtResponse(String jwttoken) {
-		this.jwttoken = jwttoken;
+		this.jwttoken = "Bearer " + jwttoken;
 	}
 
 	public String getToken() {
 		return this.jwttoken;
+	}
+
+	/**
+	 * @return String return the jwttoken
+	 */
+	public String getJwttoken() {
+		return jwttoken;
+	}
+
+	/**
+	 * @param jwttoken the jwttoken to set
+	 */
+	public void setJwttoken(String jwttoken) {
+		this.jwttoken = "Bearer " + jwttoken;
 	}
 }
