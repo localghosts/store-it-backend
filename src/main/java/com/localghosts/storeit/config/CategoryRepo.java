@@ -7,8 +7,8 @@ import java.util.List;
 import com.localghosts.storeit.model.Category;
 import com.localghosts.storeit.model.Store;
 
-public interface CategoryRepo extends JpaRepository<Category, Integer> {
-	Category findByCategoryID(long Id);
+public interface CategoryRepo extends JpaRepository<Category, Long> {
+	Category findByCategoryID(Long Id);
 
 	List<Category> findByStore(Store store);
 
