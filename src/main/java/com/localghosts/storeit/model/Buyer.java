@@ -22,6 +22,12 @@ public class Buyer implements Serializable {
 	@Column(name = "name")
 	private String name;
 
+	public Buyer(String email, String name, String password) {
+		this.email = email;
+		this.name = name;
+		this.password = password;
+	}
+
 	@JsonIgnore
 	@Column(name = "password")
 	private String password;

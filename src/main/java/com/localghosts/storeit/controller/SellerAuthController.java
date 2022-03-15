@@ -14,7 +14,7 @@ import com.localghosts.storeit.config.SellerRepo;
 import com.localghosts.storeit.model.JwtResponse;
 import com.localghosts.storeit.model.OTP;
 import com.localghosts.storeit.model.Seller;
-import com.localghosts.storeit.model.SellerSignup;
+import com.localghosts.storeit.model.Signup;
 
 @RestController
 public class SellerAuthController {
@@ -29,7 +29,7 @@ public class SellerAuthController {
 	JwtTokenUtil jwtTokenUtil;
 
 	@RequestMapping("/seller/signup")
-	public ResponseEntity<JwtResponse> SellerSignup(@RequestBody SellerSignup sellerSignup) throws Exception {
+	public ResponseEntity<JwtResponse> SellerSignup(@RequestBody Signup sellerSignup) throws Exception {
 		validateSellerSignupBody(sellerSignup);
 
 		String email = sellerSignup.getEmail();
@@ -75,7 +75,7 @@ public class SellerAuthController {
 			throw new Exception("Password not found");
 	}
 
-	private void validateSellerSignupBody(SellerSignup sellerSignup) throws Exception {
+	private void validateSellerSignupBody(Signup sellerSignup) throws Exception {
 		if (Objects.isNull(sellerSignup.getEmail()))
 			throw new Exception("Email not found");
 		if (Objects.isNull(sellerSignup.getPassword()))

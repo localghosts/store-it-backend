@@ -1,6 +1,6 @@
 package com.localghosts.storeit.model;
 
-public class SellerSignup {
+public class Signup {
 
 	private String name;
 
