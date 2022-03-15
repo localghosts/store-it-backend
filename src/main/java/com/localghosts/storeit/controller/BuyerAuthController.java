@@ -2,6 +2,7 @@ package com.localghosts.storeit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,9 @@ public class BuyerAuthController {
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;
 
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	@RequestMapping("/buyer/signup")
 	public ResponseEntity<JwtResponse> BuyerSignup(@RequestBody Signup signup) throws Exception {
 		validateSignupBody(signup);
@@ -42,7 +46,9 @@ public class BuyerAuthController {
 		if (otpentry.getOtp().equals(signup.getOtp()) == false)
 			throw new Exception("OTP not valid");
 
-		Buyer buyer = new Buyer(signup.getEmail(), signup.getName(), signup.getPassword());
+		String encryptedPassword = bCryptPasswordEncoder.encode(signup.getPassword());
+
+		Buyer buyer = new Buyer(signup.getEmail(), signup.getName(), encryptedPassword);
 		buyerRepo.save(buyer);
 
 		otpentry.setUsed(true);
@@ -62,7 +68,7 @@ public class BuyerAuthController {
 		if (buyerFromRepo == null)
 			throw new Exception("Buyer not found");
 
-		if (buyerFromRepo.getPassword().equals(buyer.getPassword()) == false)
+		if (bCryptPasswordEncoder.matches(buyer.getPassword(), buyerFromRepo.getPassword()) == false)
 			throw new Exception("Password not valid");
 
 		final String token = jwtTokenUtil.generateToken(buyer.getEmail());

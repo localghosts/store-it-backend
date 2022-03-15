@@ -2,6 +2,7 @@ package com.localghosts.storeit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,9 @@ public class SellerAuthController {
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;
 
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	@RequestMapping("/seller/signup")
 	public ResponseEntity<JwtResponse> SellerSignup(@RequestBody Signup sellerSignup) throws Exception {
 		validateSellerSignupBody(sellerSignup);
@@ -42,11 +46,13 @@ public class SellerAuthController {
 		if (otpentry.getOtp().equals(sellerSignup.getOtp()) == false)
 			throw new Exception("OTP not valid");
 
+		String encryptedPassword = bCryptPasswordEncoder.encode(sellerSignup.getPassword());
+
+		Seller seller = new Seller(sellerSignup.getName(), sellerSignup.getEmail(), encryptedPassword);
+		sellerRepo.save(seller);
+
 		otpentry.setUsed(true);
 		otpRepo.save(otpentry);
-
-		Seller seller = new Seller(sellerSignup.getName(), sellerSignup.getEmail(), sellerSignup.getPassword());
-		sellerRepo.save(seller);
 
 		final String token = jwtTokenUtil.generateToken(seller.getEmail());
 
@@ -62,7 +68,7 @@ public class SellerAuthController {
 		if (sellerFromRepo == null)
 			throw new Exception("Seller not found");
 
-		if (sellerFromRepo.getPassword().equals(seller.getPassword()) == false)
+		if (bCryptPasswordEncoder.matches(seller.getPassword(), sellerFromRepo.getPassword()) == false)
 			throw new Exception("Password not valid");
 
 		final String token = jwtTokenUtil.generateToken(seller.getEmail());
