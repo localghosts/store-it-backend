@@ -78,7 +78,7 @@ public class CartController {
 		if (buyer == null || store == null)
 			throw new Error("Invalid request");
 		List<Cart> cartlist = cartRepo.findByBuyerAndStore(buyer, store);
-		Long total = cartlist.stream().mapToLong(Cart::getPrice).sum();
+		Long total = cartlist.stream().mapToLong(Cart::getAmount).sum();
 		CartResponse cartResponse = new CartResponse(total, cartlist);
 		return cartResponse;
 	}

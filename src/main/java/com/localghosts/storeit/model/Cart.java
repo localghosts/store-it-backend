@@ -125,7 +125,7 @@ public class Cart implements Serializable {
         this.store = store;
     }
 
-    public int getPrice() {
+    public int getAmount() {
         return product.getPrice() * quantity;
     }
 }
