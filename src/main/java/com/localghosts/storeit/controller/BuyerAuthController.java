@@ -16,7 +16,7 @@ import com.localghosts.storeit.config.OTPRepo;
 import com.localghosts.storeit.model.Buyer;
 import com.localghosts.storeit.model.JwtResponse;
 import com.localghosts.storeit.model.OTP;
-import com.localghosts.storeit.model.Signup;
+import com.localghosts.storeit.model.BuyerSignup;
 
 @RestController
 @CrossOrigin()
@@ -35,7 +35,7 @@ public class BuyerAuthController {
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@RequestMapping("/buyer/signup")
-	public ResponseEntity<JwtResponse> BuyerSignup(@RequestBody Signup signup) throws Exception {
+	public ResponseEntity<JwtResponse> BuyerSignup(@RequestBody BuyerSignup signup) throws Exception {
 		validateSignupBody(signup);
 
 		String email = signup.getEmail();
@@ -83,7 +83,7 @@ public class BuyerAuthController {
 			throw new Exception("Password not found");
 	}
 
-	private void validateSignupBody(Signup signup) throws Exception {
+	private void validateSignupBody(BuyerSignup signup) throws Exception {
 		if (Objects.isNull(signup.getEmail()))
 			throw new Exception("Email not found");
 		if (Objects.isNull(signup.getPassword()))

@@ -1,6 +1,6 @@
 package com.localghosts.storeit.model;
 
-public class Signup {
+public class BuyerSignup {
 
 	private String name;
 
@@ -10,14 +10,14 @@ public class Signup {
 
 	private String otp;
 
-	public Signup(String name, String email, String password, String otp) {
+	public BuyerSignup(String name, String email, String password, String otp) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.otp = otp;
 	}
 
-	public Signup() {
+	public BuyerSignup() {
 	}
 	
 	public String getPassword() {
