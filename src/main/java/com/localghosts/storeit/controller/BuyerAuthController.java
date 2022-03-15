@@ -40,11 +40,11 @@ public class BuyerAuthController {
 		if (otpentry.getOtp().equals(signup.getOtp()) == false)
 			throw new Exception("OTP not valid");
 
-		otpentry.setUsed(true);
-		otpRepo.save(otpentry);
-
 		Buyer buyer = new Buyer(signup.getEmail(), signup.getName(), signup.getPassword());
 		buyerRepo.save(buyer);
+
+		otpentry.setUsed(true);
+		otpRepo.save(otpentry);
 
 		final String token = jwtTokenUtil.generateToken(buyer.getEmail());
 
