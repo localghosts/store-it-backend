@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -35,9 +36,11 @@ public class Buyer implements Serializable {
 	@Column(name = "password")
 	private String password;
 
+	@JsonIgnoreProperties("buyer")
 	@OneToMany(mappedBy = "buyer")
 	private List<Cart> carts;
 
+	@JsonIgnoreProperties("buyer")
 	@OneToMany(mappedBy = "buyer")
 	private List<Order> orders;
 
