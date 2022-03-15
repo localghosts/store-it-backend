@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "categories")
-public class Category implements Serializable{
+public class Category implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +31,7 @@ public class Category implements Serializable{
 	@Column(name = "enabled")
 	private boolean enabled;
 
-	@JsonIgnoreProperties("categories")
+	@JsonIgnoreProperties({ "categories", "hibernateLazyInitializer", "handler" })
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "store", nullable = false)
 	private Store store;

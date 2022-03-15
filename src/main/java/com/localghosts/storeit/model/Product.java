@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "products")
-public class Product implements Serializable{
+public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +28,7 @@ public class Product implements Serializable{
 	@Column(name = "price")
 	private int price;
 
-	@JsonIgnoreProperties("products")
+	@JsonIgnoreProperties({ "products", "hibernateLazyInitializer", "handler" })
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category", nullable = false)
 	private Category category;
