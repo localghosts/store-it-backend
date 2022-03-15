@@ -1,22 +1,20 @@
 package com.localghosts.storeit.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "Sellers")
-public class Seller {
+public class Seller implements Serializable {
 
 	@Column(name = "name")
 	private String name;
@@ -25,11 +23,12 @@ public class Seller {
 	@Column(name = "email")
 	private String email;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "password")
 	private String password;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "store_seller_fk")
+	@JsonIgnoreProperties("seller")
+	@OneToOne(mappedBy = "seller", cascade = CascadeType.ALL)
 	private Store store;
 
 	public Store getStore() {
@@ -62,5 +61,15 @@ public class Seller {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Seller() {
+	}
+
+	public Seller(String name, String email, String password) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
 	}
 }

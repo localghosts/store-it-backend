@@ -2,6 +2,12 @@ package com.localghosts.storeit.service;
 
 import java.util.ArrayList;
 
+import com.localghosts.storeit.config.BuyerRepo;
+import com.localghosts.storeit.config.SellerRepo;
+import com.localghosts.storeit.model.Buyer;
+import com.localghosts.storeit.model.Seller;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,14 +17,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
+	@Autowired
+	private SellerRepo sellerRepo;
+
+	@Autowired
+	private BuyerRepo buyerRepo;
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		if ("localghosts".equals(username)) {
-			// password is "storeit"
-			return new User("localghosts", "$2a$10$vls5PvHdcm4JfcJj7qcuc.nJ0BNT1ddrVy7rJayLEeop2SVAajxwm",
-					new ArrayList<>());
-		} else {
-			throw new UsernameNotFoundException("User not found with username: " + username);
+		Buyer buyer = buyerRepo.findByEmail(username);
+		if (buyer == null) {
+			Seller seller = sellerRepo.findByEmail(username);
+			if (seller == null) {
+				throw new UsernameNotFoundException("User not found with username: " + username);
+			}
+			return new User(seller.getEmail(), seller.getPassword(), new ArrayList<>());
 		}
+		return new User(buyer.getEmail(), buyer.getPassword(), new ArrayList<>());
 	}
 }

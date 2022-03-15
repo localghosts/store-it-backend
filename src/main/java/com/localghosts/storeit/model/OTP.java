@@ -1,5 +1,7 @@
 package com.localghosts.storeit.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "OTPs")
-public class OTP {
+public class OTP implements Serializable {
 	@Id
 	@Column(name = "email")
 	private String email;
@@ -15,25 +17,25 @@ public class OTP {
 	@Column(name = "otp")
 	private String otp;
 
-	@Column(name = "done")
-	private int done;
+	@Column(name = "used")
+	private boolean used;
 
-	public int getDone() {
-		return done;
+	public boolean getUsed() {
+		return used;
 	}
 
-	public void setDone(int done) {
-		this.done = done;
+	public void setUsed(boolean used) {
+		this.used = used;
 	}
 
 	public OTP() {
 	}
 
-	public OTP(String otp, String email, int done) {
+	public OTP(String otp, String email, boolean used) {
 		super();
 		this.email = email;
 		this.otp = otp;
-		this.done = done;
+		this.used = used;
 	}
 
 	public String getEmail() {
@@ -51,4 +53,12 @@ public class OTP {
 	public void setOtp(String otp) {
 		this.otp = otp;
 	}
+
+	/**
+	 * @return boolean return the used
+	 */
+	public boolean isUsed() {
+		return used;
+	}
+
 }
