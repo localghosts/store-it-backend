@@ -10,6 +10,16 @@ public class Signup {
 
 	private String otp;
 
+	public Signup(String name, String email, String password, String otp) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.otp = otp;
+	}
+
+	public Signup() {
+	}
+	
 	public String getPassword() {
 		return password;
 	}

@@ -22,6 +22,9 @@ public class Buyer implements Serializable {
 	@Column(name = "name")
 	private String name;
 
+	public Buyer() {
+	}
+
 	public Buyer(String email, String name, String password) {
 		this.email = email;
 		this.name = name;
