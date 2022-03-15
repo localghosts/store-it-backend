@@ -1,5 +1,6 @@
 package com.localghosts.storeit.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,8 +13,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Buyers")
-public class Buyer {
+public class Buyer implements Serializable {
 
+	
 	@Id
 	@Column(name = "email")
 	private String email;

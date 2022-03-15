@@ -1,5 +1,6 @@
 package com.localghosts.storeit.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "stores")
-public class Store {
+public class Store implements Serializable {
 
     @Id
     @Column(name = "storeslug")

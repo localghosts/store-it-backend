@@ -1,5 +1,6 @@
 package com.localghosts.storeit.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

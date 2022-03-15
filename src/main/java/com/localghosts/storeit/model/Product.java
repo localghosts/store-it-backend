@@ -1,5 +1,7 @@
 package com.localghosts.storeit.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,5 +1,7 @@
 package com.localghosts.storeit.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Sellers")
-public class Seller {
+public class Seller implements Serializable {
 
 	@Column(name = "name")
 	private String name;

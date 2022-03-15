@@ -1,5 +1,7 @@
 package com.localghosts.storeit.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "OTPs")
-public class OTP {
+public class OTP implements Serializable {
 	@Id
 	@Column(name = "email")
 	private String email;

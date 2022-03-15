@@ -1,8 +1,9 @@
 package com.localghosts.storeit.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CartResponse {
+public class CartResponse implements Serializable {
 	private Long total;
 	private List<Cart> cartList;
 

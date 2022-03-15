@@ -1,5 +1,6 @@
 package com.localghosts.storeit.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "categories")
-public class Category {
+public class Category implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
