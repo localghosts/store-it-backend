@@ -1,6 +1,5 @@
 package com.localghosts.storeit.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,76 +11,90 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "stores")
 public class Store {
 
-	@Id
-	@Column(name = "storeslug")
-	private String storeslug;
+    @Id
+    @Column(name = "storeslug")
+    private String storeslug;
 
-	@Column(name = "storename")
-	private String storename;
+    @Column(name = "storename")
+    private String storename;
 
-	@OneToOne(mappedBy = "store", cascade = CascadeType.ALL)
-	private Seller seller;
+    @JsonIgnoreProperties("store")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "seller", referencedColumnName = "email")
+    private Seller seller;
 
-	public Store() {
-	}
+    @JsonIgnoreProperties("store")
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private List<Category> categories;
 
-	public Store(String storeslug, String storename, List<Product> products, List<Category> categories) {
-		super();
-		this.storeslug = storeslug;
-		this.storename = storename;
-		this.products = products;
-		this.categories = categories;
-	}
+    public Store(String storeslug, String storename, Seller seller) {
+        this.storeslug = storeslug;
+        this.storename = storename;
+        this.seller = seller;
+    }
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "product_store_fk", referencedColumnName = "storeslug")
-	private List<Product> products = new ArrayList<>();
+    public Store() {
+    }
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "category_store_fk", referencedColumnName = "storeslug")
-	private List<Category> categories = new ArrayList<>();
+    /**
+     * @return String return the storeslug
+     */
+    public String getStoreslug() {
+        return storeslug;
+    }
 
-	public String getStoreslug() {
-		return storeslug;
-	}
+    /**
+     * @param storeslug the storeslug to set
+     */
+    public void setStoreslug(String storeslug) {
+        this.storeslug = storeslug;
+    }
 
-	public void setStoreslug(String storeslug) {
-		this.storeslug = storeslug;
-	}
+    /**
+     * @return String return the storename
+     */
+    public String getStorename() {
+        return storename;
+    }
 
-	public String getStorename() {
-		return storename;
-	}
+    /**
+     * @param storename the storename to set
+     */
+    public void setStorename(String storename) {
+        this.storename = storename;
+    }
 
-	public void setStorename(String storename) {
-		this.storename = storename;
-	}
+    /**
+     * @return Seller return the seller
+     */
+    public Seller getSeller() {
+        return seller;
+    }
 
-	public List<Product> getProducts() {
-		return products;
-	}
+    /**
+     * @param seller the seller to set
+     */
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+    /**
+     * @return List<Category> return the categories
+     */
+    public List<Category> getCategories() {
+        return categories;
+    }
 
-	public List<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
-
-	public Seller getSeller() {
-		return seller;
-	}
-
-	public void setSeller(Seller seller) {
-		this.seller = seller;
-	}
+    /**
+     * @param categories the categories to set
+     */
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
 }

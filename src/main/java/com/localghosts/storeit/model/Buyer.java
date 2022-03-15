@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Buyers")
 public class Buyer {
@@ -19,6 +21,7 @@ public class Buyer {
 	@Column(name = "name")
 	private String name;
 
+	@JsonIgnore
 	@Column(name = "password")
 	private String password;
 

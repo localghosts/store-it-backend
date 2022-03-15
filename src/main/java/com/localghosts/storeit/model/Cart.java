@@ -10,7 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "cart") // @Table(name = "ta_bodystat", uniqueConstraints =
+                      // {@UniqueConstraint(columnNames = {"id"})})
 public class Cart {
 
     @Id

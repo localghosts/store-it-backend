@@ -1,17 +1,20 @@
 package com.localghosts.storeit.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "categories")
@@ -27,17 +30,23 @@ public class Category {
 	@Column(name = "enabled")
 	private boolean enabled;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "product_category_fk", referencedColumnName = "categoryID")
-	private List<Product> products = new ArrayList<>();
+	@JsonIgnoreProperties("categories")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "store", nullable = false)
+	private Store store;
+
+	@JsonIgnoreProperties("category")
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	private List<Product> products;
 
 	public Category() {
 	}
 
-	public Category(String name, boolean enabled) {
+	public Category(String name, Store store) {
 		super();
 		this.name = name;
-		this.enabled = enabled;
+		this.store = store;
+		this.enabled = true;
 
 	}
 
@@ -75,8 +84,21 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [categoryID=" + categoryID + ", name=" + name + ", enabled=" + enabled
-				+ "]";
+		return "Category [categoryID=" + categoryID + ", name=" + name + ", enabled=" + enabled + "]";
+	}
+
+	/**
+	 * @return Store return the store
+	 */
+	public Store getStore() {
+		return store;
+	}
+
+	/**
+	 * @param store the store to set
+	 */
+	public void setStore(Store store) {
+		this.store = store;
 	}
 
 }
