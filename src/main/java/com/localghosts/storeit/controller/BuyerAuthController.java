@@ -19,7 +19,7 @@ import com.localghosts.storeit.model.OTP;
 import com.localghosts.storeit.model.BuyerSignup;
 
 @RestController
-@CrossOrigin()
+@CrossOrigin(origins = "*")
 public class BuyerAuthController {
 
 	@Autowired

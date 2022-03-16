@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin()
+@CrossOrigin(origins = "*")
 public class StoreController {
 
 	@Autowired

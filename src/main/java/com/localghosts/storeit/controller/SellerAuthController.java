@@ -22,7 +22,7 @@ import com.localghosts.storeit.model.SellerSignupResponse;
 import com.localghosts.storeit.model.Store;
 
 @RestController
-@CrossOrigin()
+@CrossOrigin(origins = "*")
 public class SellerAuthController {
 
 	@Autowired
