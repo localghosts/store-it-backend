@@ -18,6 +18,7 @@ import com.localghosts.storeit.model.JwtResponse;
 import com.localghosts.storeit.model.OTP;
 import com.localghosts.storeit.model.Seller;
 import com.localghosts.storeit.model.SellerSignup;
+import com.localghosts.storeit.model.SellerSignupResponse;
 import com.localghosts.storeit.model.Store;
 
 @RestController
@@ -86,7 +87,11 @@ public class SellerAuthController {
 
 		final String token = jwtTokenUtil.generateToken(seller.getEmail());
 
-		return ResponseEntity.ok(new JwtResponse(token));
+		SellerSignupResponse sellerSignupResponse = new SellerSignupResponse(
+				sellerFromRepo.getStore().getStoreslug(),
+				token);
+
+		return ResponseEntity.ok(sellerSignupResponse);
 	}
 
 	private void validateSellerLoginBody(Seller seller) throws Exception {
