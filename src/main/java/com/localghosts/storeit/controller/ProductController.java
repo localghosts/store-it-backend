@@ -50,7 +50,7 @@ public class ProductController {
 	@DeleteMapping("/store/{storeslug}/product/{productid}")
 	public void deleteProduct(@PathVariable("productid") Long productid) {
 		Product product = productRepo.findByProductID(productid);
-		productRepo.delete(product);
+		// productRepo.delete(product);
 	}
 
 	@PutMapping("/store/{storeslug}/product/{productid}/toggle")
