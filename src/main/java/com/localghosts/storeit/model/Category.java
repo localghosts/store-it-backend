@@ -35,6 +35,9 @@ public class Category implements Serializable {
 	@Column(name = "image")
 	private String image;
 
+	@Column(name = "description")
+	private String description;
+
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "store", nullable = false)
@@ -126,5 +129,20 @@ public class Category implements Serializable {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+
+    /**
+     * @return String return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 }

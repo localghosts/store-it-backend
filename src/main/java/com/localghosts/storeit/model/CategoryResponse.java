@@ -26,6 +26,10 @@ public class CategoryResponse {
 		return category.getImage();
 	}
 
+	public String getDescription() {
+		return category.getDescription();
+	}
+
 	public Long getCategoryID() {
 		return category.getCategoryID();
 	}
