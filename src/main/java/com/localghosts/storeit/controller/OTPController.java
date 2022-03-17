@@ -31,30 +31,30 @@ public class OTPController {
 
 	@PostMapping("/otp")
 	public String getOTP(@RequestBody OTP OTPRequest) throws MessagingException, IOException {
-		if (Objects.isNull(OTPRequest.getEmail()) || OTPRequest.getEmail().isEmpty())
-			throw new Error("Please provide a valid email address");
+		// if (Objects.isNull(OTPRequest.getEmail()) || OTPRequest.getEmail().isEmpty())
+		// 	throw new Error("Please provide a valid email address");
 
-		String email = OTPRequest.getEmail();
+		// String email = OTPRequest.getEmail();
 
-		if (email == null)
-			throw new Error("Email is null");
+		// if (email == null)
+		// 	throw new Error("Email is null");
 
-		if (otpRepo.findByEmail(email) != null)
-			throw new Error("OTP Already Sent");
+		// if (otpRepo.findByEmail(email) != null)
+		// 	throw new Error("OTP Already Sent");
 
-		OTP OTPEntry = new OTP(rnd.generateOTP(6), email, false);
+		// OTP OTPEntry = new OTP(rnd.generateOTP(6), email, false);
 
-		EmailRequest emailRequest = new EmailRequest();
+		// EmailRequest emailRequest = new EmailRequest();
 
-		emailRequest.setReceiverEmail(email);
-		emailRequest.setSubject("OTP");
+		// emailRequest.setReceiverEmail(email);
+		// emailRequest.setSubject("OTP");
 
-		String message = "Your OTP: " + OTPEntry.getOtp();
-		emailRequest.setMessage(message);
+		// String message = "Your OTP: " + OTPEntry.getOtp();
+		// emailRequest.setMessage(message);
 
-		emailingService.SendMail(emailRequest);
+		// emailingService.SendMail(emailRequest);
 
-		otpRepo.save(OTPEntry);
+		// otpRepo.save(OTPEntry);
 
 		return "OTP Sent";
 	}
