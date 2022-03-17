@@ -18,6 +18,9 @@ public class OrderItem {
     private int productPrice;
     private int quantity;
 
+    public OrderItem() {
+    }
+
     public OrderItem(String productName, int productPrice, int quantity) {
         this.productName = productName;
         this.productPrice = productPrice;

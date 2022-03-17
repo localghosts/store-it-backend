@@ -1,6 +1,7 @@
 package com.localghosts.storeit.controller;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.localghosts.storeit.config.BuyerRepo;
@@ -67,10 +68,13 @@ public class CartController {
 			if (quantity == 0)
 				throw new Error("Invalid quantity");
 			cartRepo.save(new Cart(buyer, store, product, quantity));
+			return "Added to cart";
 		}
 
-		if (quantity == 0)
+		if (quantity == 0) {
 			cartRepo.delete(cart);
+			return "Removed from cart";
+		}
 
 		cart.setQuantity(quantity);
 		cartRepo.save(cart);
@@ -93,6 +97,8 @@ public class CartController {
 	@PostMapping("/store/{storeslug}/checkout")
 	public String checkout(@RequestBody Order orderrequest, @PathVariable("storeslug") String storeslug,
 			Authentication auth) {
+		Objects.requireNonNull(orderrequest.getAddress());
+
 		Buyer buyer = buyerRepo.findByEmail(auth.getName());
 		Store store = storeRepo.findByStoreslug(storeslug);
 
@@ -101,8 +107,17 @@ public class CartController {
 
 		List<Cart> cartlist = cartRepo.findByBuyerAndStore(buyer, store);
 
-		List<OrderItem> orderItems = cartlist.stream().map(cart -> new OrderItem(cart)).collect(Collectors.toList());
+		if (cartlist.isEmpty())
+			throw new Error("Cart is empty");
+
+		List<OrderItem> orderItems = cartlist.stream().map(cart -> orderItemRepo.save(new OrderItem(cart)))
+				.collect(Collectors.toList());
+
 		Order order = new Order(buyer, store, orderrequest.getAddress(), orderItems);
+
+		for (Cart cart : cartlist) {
+			cartRepo.delete(cart);
+		}
 
 		orderRepo.save(order);
 
