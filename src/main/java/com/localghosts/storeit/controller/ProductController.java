@@ -2,6 +2,7 @@ package com.localghosts.storeit.controller;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.localghosts.storeit.config.CartRepo;
 import com.localghosts.storeit.config.CategoryRepo;
@@ -9,6 +10,7 @@ import com.localghosts.storeit.config.ProductRepo;
 import com.localghosts.storeit.model.Cart;
 import com.localghosts.storeit.model.Category;
 import com.localghosts.storeit.model.Product;
+import com.localghosts.storeit.model.ProductResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -67,6 +70,13 @@ public class ProductController {
 		Product product = productRepo.findByProductID(productid);
 		product.setInstock(!product.isInstock());
 		productRepo.save(product);
+	}
+
+	@GetMapping("/products")
+	public List<ProductResponse> getProducts(@RequestParam("name") String name) {
+		return productRepo.findTop3ByNameIgnoreCaseContaining(name).stream()
+				.map(product -> new ProductResponse(product))
+				.collect(Collectors.toList());
 	}
 
 }
