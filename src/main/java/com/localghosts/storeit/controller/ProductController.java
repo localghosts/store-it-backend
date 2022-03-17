@@ -3,8 +3,10 @@ package com.localghosts.storeit.controller;
 import java.util.List;
 import java.util.Objects;
 
+import com.localghosts.storeit.config.CartRepo;
 import com.localghosts.storeit.config.CategoryRepo;
 import com.localghosts.storeit.config.ProductRepo;
+import com.localghosts.storeit.model.Cart;
 import com.localghosts.storeit.model.Category;
 import com.localghosts.storeit.model.Product;
 
@@ -28,6 +30,9 @@ public class ProductController {
 	@Autowired
 	CategoryRepo categoryRepo;
 
+	@Autowired
+	CartRepo cartRepo;
+
 	@GetMapping("/store/{storeslug}/{categoryid}")
 	public List<Product> getProducts(@PathVariable("categoryid") Long categoryid) {
 		Category category = categoryRepo.findByCategoryID(categoryid);
@@ -50,7 +55,11 @@ public class ProductController {
 	@DeleteMapping("/store/{storeslug}/product/{productid}")
 	public void deleteProduct(@PathVariable("productid") Long productid) {
 		Product product = productRepo.findByProductID(productid);
-		// productRepo.delete(product);
+		List<Cart> carts = cartRepo.findByProduct(product);
+		for (Cart cart : carts) {
+			cartRepo.delete(cart);
+		}
+		productRepo.delete(product);
 	}
 
 	@PutMapping("/store/{storeslug}/product/{productid}/toggle")

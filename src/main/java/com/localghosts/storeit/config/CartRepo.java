@@ -15,4 +15,6 @@ public interface CartRepo extends JpaRepository<Cart, Long> {
 	List<Cart> findByBuyerAndStore(Buyer buyer, Store store);
 
 	Cart findTop1ByBuyerAndStoreAndProduct(Buyer buyer, Store store, Product product);
+
+	List<Cart> findByProduct(Product product);
 }
