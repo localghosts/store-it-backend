@@ -48,9 +48,9 @@ public class SellerAuthController {
 		// OTP otpentry = otpRepo.findByEmail(email);
 
 		// if (otpentry == null || otpentry.getUsed() == true)
-		// 	throw new Exception("OTP not found or already used");
+		// throw new Exception("OTP not found or already used");
 		// if (otpentry.getOtp().equals(sellerSignup.getOtp()) == false)
-		// 	throw new Exception("OTP not valid");
+		// throw new Exception("OTP not valid");
 
 		String encryptedPassword = bCryptPasswordEncoder.encode(sellerSignup.getPassword());
 
@@ -70,7 +70,7 @@ public class SellerAuthController {
 
 		final String token = jwtTokenUtil.generateToken(seller.getEmail());
 
-		return ResponseEntity.ok(new JwtResponse(token));
+		return ResponseEntity.ok(new SellerSignupResponse(storeslugString, token));
 	}
 
 	@RequestMapping("/seller/login")
