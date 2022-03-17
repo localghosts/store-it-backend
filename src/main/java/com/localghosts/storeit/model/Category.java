@@ -38,6 +38,14 @@ public class Category implements Serializable {
 	@Column(name = "description")
 	private String description;
 
+	public Category(String name, String image, String description, Store store) {
+		this.name = name;
+		this.image = image;
+		this.description = description;
+		this.store = store;
+		this.enabled = true;
+	}
+
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "store", nullable = false)

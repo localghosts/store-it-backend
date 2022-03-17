@@ -45,7 +45,7 @@ public class CategoryController {
 
 		List<Category> existing = categoryRepo.findByStoreAndName(store, category.getName());
 		if (existing == null || existing.isEmpty()) {
-			Category newCategory = new Category(category.getName(), category.getImage(), store);
+			Category newCategory = new Category(category.getName(), category.getImage(), category.getDescription(), store);
 			categoryRepo.save(newCategory);
 		} else {
 			throw new Error("Category already exist");
