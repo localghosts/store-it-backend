@@ -10,9 +10,11 @@ import com.localghosts.storeit.model.Store;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,4 +51,18 @@ public class CategoryController {
 			throw new Error("Category already exist");
 		}
 	}
+
+	@DeleteMapping("/store/{storeslug}/category/{categoryid}")
+	public void deleteCategory(@PathVariable("categoryid") Long categoryid) {
+		Category category = categoryRepo.findByCategoryID(categoryid);
+		categoryRepo.delete(category);
+	}
+
+	@PutMapping("/store/{storeslug}/category/{categoryid}/toggle")
+	public void toggleCategory(@PathVariable("categoryid") Long categoryid) {
+		Category category = categoryRepo.findByCategoryID(categoryid);
+		category.setEnabled(!category.isEnabled());
+		categoryRepo.save(category);
+	}
+
 }
