@@ -26,25 +26,24 @@ public class EmailConfig implements Serializable {
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.host", "smtp.sendgrid.net");
 		props.put("mail.smtp.port", "587");
 		return props;
 	}
 
 	public Session getSession() {
-		String emailID = emailUsername + "@gmail.com";
 
 		Properties props = emailConfiguration();
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(emailID, emailPassword);
+				return new PasswordAuthentication(emailUsername, emailPassword);
 			}
 		});
 		return session;
 	}
 
 	public String getSenderEmailAddress() {
-		return String.format("store.it automation<%s@gmail.com>", emailUsername);
+		return String.format("store.it automation<harshitr20@iitk.ac.in>", emailUsername);
 	}
 
 	public String getContent() {
