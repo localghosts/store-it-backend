@@ -38,21 +38,23 @@ public class BuyerAuthController {
 	public ResponseEntity<JwtResponse> BuyerSignup(@RequestBody BuyerSignup signup) throws Exception {
 		validateSignupBody(signup);
 
-		String email = signup.getEmail();
-		OTP otpentry = otpRepo.findByEmail(email);
+		// String email = signup.getEmail();
 
-		if (otpentry == null || otpentry.getUsed() == true)
-			throw new Exception("OTP not found or already used");
-		if (otpentry.getOtp().equals(signup.getOtp()) == false)
-			throw new Exception("OTP not valid");
+
+		// OTP otpentry = otpRepo.findByEmail(email);
+
+		// if (otpentry == null || otpentry.getUsed() == true)
+		// 	throw new Exception("OTP not found or already used");
+		// if (otpentry.getOtp().equals(signup.getOtp()) == false)
+		// 	throw new Exception("OTP not valid");
 
 		String encryptedPassword = bCryptPasswordEncoder.encode(signup.getPassword());
 
 		Buyer buyer = new Buyer(signup.getEmail(), signup.getName(), encryptedPassword);
 		buyerRepo.save(buyer);
 
-		otpentry.setUsed(true);
-		otpRepo.save(otpentry);
+		// otpentry.setUsed(true);
+		// otpRepo.save(otpentry);
 
 		final String token = jwtTokenUtil.generateToken(buyer.getEmail());
 

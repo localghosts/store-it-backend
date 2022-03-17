@@ -44,21 +44,21 @@ public class SellerAuthController {
 	public ResponseEntity<JwtResponse> SellerSignup(@RequestBody SellerSignup sellerSignup) throws Exception {
 		validateSellerSignupBody(sellerSignup);
 
-		String email = sellerSignup.getEmail();
-		OTP otpentry = otpRepo.findByEmail(email);
+		// String email = sellerSignup.getEmail();
+		// OTP otpentry = otpRepo.findByEmail(email);
 
-		if (otpentry == null || otpentry.getUsed() == true)
-			throw new Exception("OTP not found or already used");
-		if (otpentry.getOtp().equals(sellerSignup.getOtp()) == false)
-			throw new Exception("OTP not valid");
+		// if (otpentry == null || otpentry.getUsed() == true)
+		// 	throw new Exception("OTP not found or already used");
+		// if (otpentry.getOtp().equals(sellerSignup.getOtp()) == false)
+		// 	throw new Exception("OTP not valid");
 
 		String encryptedPassword = bCryptPasswordEncoder.encode(sellerSignup.getPassword());
 
 		Seller seller = new Seller(sellerSignup.getName(), sellerSignup.getEmail(), encryptedPassword);
 		seller = sellerRepo.save(seller);
 
-		otpentry.setUsed(true);
-		otpRepo.save(otpentry);
+		// otpentry.setUsed(true);
+		// otpRepo.save(otpentry);
 
 		String storeslugString = makeStorestlug(sellerSignup.getStorename());
 		while (storeRepo.findByStoreslug(storeslugString) != null)
