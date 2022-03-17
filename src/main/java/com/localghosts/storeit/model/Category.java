@@ -138,19 +138,18 @@ public class Category implements Serializable {
 		this.image = image;
 	}
 
+	/**
+	 * @return String return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
 
-    /**
-     * @return String return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 }

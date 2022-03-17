@@ -40,7 +40,6 @@ public class BuyerAuthController {
 
 		String email = signup.getEmail();
 
-
 		OTP otpentry = otpRepo.findByEmail(email);
 
 		if (otpentry == null || otpentry.getUsed() == true)

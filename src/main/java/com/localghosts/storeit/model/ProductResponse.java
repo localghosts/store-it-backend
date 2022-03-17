@@ -4,6 +4,9 @@ public class ProductResponse {
 
 	private Product product;
 
+	public ProductResponse() {
+	}
+
 	public ProductResponse(Product product) {
 		this.product = product;
 	}

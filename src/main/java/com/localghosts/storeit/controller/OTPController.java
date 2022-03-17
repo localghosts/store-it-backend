@@ -8,8 +8,8 @@ import javax.mail.MessagingException;
 import com.localghosts.storeit.config.OTPRepo;
 import com.localghosts.storeit.model.EmailRequest;
 import com.localghosts.storeit.model.OTP;
-import com.localghosts.storeit.model.RandomString;
 import com.localghosts.storeit.service.EmailingService;
+import com.localghosts.storeit.service.RandomString;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

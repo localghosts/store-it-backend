@@ -1,4 +1,4 @@
-package com.localghosts.storeit.model;
+package com.localghosts.storeit.service;
 
 import org.springframework.stereotype.Component;
 
