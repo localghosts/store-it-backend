@@ -59,10 +59,15 @@ public class CategoryController {
 		categoryRepo.delete(category);
 	}
 
-	@PutMapping("/store/{storeslug}/category/{categoryid}/toggle")
-	public void toggleCategory(@PathVariable("categoryid") Long categoryid) {
+	@PutMapping("/store/{storeslug}/category/{categoryid}")
+	public void toggleCategory(@PathVariable("categoryid") Long categoryid, @RequestBody Category updatedCategory) {
 		Category category = categoryRepo.findByCategoryID(categoryid);
-		category.setEnabled(!category.isEnabled());
+		if (category == null)
+			throw new Error("Category not found");
+		if (Objects.isNull(updatedCategory.isEnabled()))
+			throw new Error("Invalid category name");
+
+		category.setEnabled(updatedCategory.isEnabled());
 		categoryRepo.save(category);
 	}
 

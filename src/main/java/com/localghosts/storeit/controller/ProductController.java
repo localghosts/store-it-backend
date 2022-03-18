@@ -93,7 +93,7 @@ public class ProductController {
 		productRepo.delete(product);
 	}
 
-	@PutMapping("/store/{storeslug}/product/{productid}/toggle")
+	@PutMapping("/store/{storeslug}/product/{productid}")
 	public void toggleProduct(@RequestBody Product updatedProduct, @PathVariable("productid") Long productid,
 			Authentication auth) {
 		Seller seller = sellerRepo.findByEmail(auth.getName());

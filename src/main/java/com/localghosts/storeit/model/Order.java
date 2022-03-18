@@ -30,7 +30,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "buyerID", nullable = false)
     private Buyer buyer;
 
-    @JsonIgnoreProperties({ "storelogo", "storebanner", "hibernateLazyInitializer", "handler" })
+    @JsonIgnoreProperties({ "storebanner", "hibernateLazyInitializer", "handler" })
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "StoreID", nullable = false)
     private Store store;
@@ -188,4 +188,11 @@ public class Order implements Serializable {
         this.orderItems = orderItems;
     }
 
+    public Long getAmount() {
+        Long amount = 0L;
+        for (OrderItem item : orderItems) {
+            amount += item.getProductPrice() * item.getQuantity();
+        }
+        return amount;
+    }
 }
