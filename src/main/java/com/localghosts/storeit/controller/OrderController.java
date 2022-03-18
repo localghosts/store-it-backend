@@ -58,6 +58,7 @@ public class OrderController {
 
 		Objects.requireNonNull(updatedOrder.getStatus());
 		order.setStatus(updatedOrder.getStatus());
+		orderRepo.save(order);
 	}
 
 	@GetMapping("/orders")
