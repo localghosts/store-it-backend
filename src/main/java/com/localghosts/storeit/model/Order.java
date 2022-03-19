@@ -59,10 +59,11 @@ public class Order implements Serializable {
     @Column(name = "status")
     private Status status;
 
-    public Order(Buyer buyer, Store store, String address, List<OrderItem> orderItems) {
+    public Order(Buyer buyer, Store store, String address, String phoneNo, List<OrderItem> orderItems) {
         this.buyer = buyer;
         this.store = store;
         this.address = address;
+        this.phoneNo = phoneNo;
         this.orderItems = orderItems;
         this.orderDate = new Date();
         this.status = Status.PLACED;
