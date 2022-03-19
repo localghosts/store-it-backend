@@ -38,6 +38,9 @@ public class Order implements Serializable {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "phoneno")
+    private String phoneNo;
+
     @OneToMany
     private List<OrderItem> orderItems;
 
@@ -186,6 +189,20 @@ public class Order implements Serializable {
      */
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    /**
+     * @return String return the phoneNo
+     */
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    /**
+     * @param phoneNo the phoneNo to set
+     */
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     public Long getAmount() {

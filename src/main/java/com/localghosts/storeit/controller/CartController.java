@@ -98,6 +98,7 @@ public class CartController {
 	public String checkout(@RequestBody Order orderrequest, @PathVariable("storeslug") String storeslug,
 			Authentication auth) {
 		Objects.requireNonNull(orderrequest.getAddress());
+		Objects.requireNonNull(orderrequest.getPhoneNo());
 
 		Buyer buyer = buyerRepo.findByEmail(auth.getName());
 		Store store = storeRepo.findByStoreslug(storeslug);
