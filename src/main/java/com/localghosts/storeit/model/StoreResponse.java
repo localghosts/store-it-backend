@@ -14,7 +14,8 @@ public class StoreResponse {
 	}
 
 	public List<CategoryResponse> getCategories() {
-		return store.getCategories().stream().map(category -> new CategoryResponse(category))
+		return store.getCategories().stream().filter(category -> category.isEnabled() == true)
+				.map(category -> new CategoryResponse(category))
 				.collect(Collectors.toList());
 	}
 
