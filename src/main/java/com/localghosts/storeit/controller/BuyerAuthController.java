@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
-import com.localghosts.storeit.config.BuyerRepo;
-import com.localghosts.storeit.config.JwtTokenUtil;
-import com.localghosts.storeit.config.OTPRepo;
 import com.localghosts.storeit.model.Buyer;
 import com.localghosts.storeit.model.JwtResponse;
 import com.localghosts.storeit.model.OTP;
+import com.localghosts.storeit.repo.BuyerRepo;
+import com.localghosts.storeit.repo.OTPRepo;
+import com.localghosts.storeit.security.JwtTokenUtil;
 import com.localghosts.storeit.model.BuyerSignup;
 
 @RestController

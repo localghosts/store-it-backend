@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.localghosts.storeit.config.CartRepo;
-import com.localghosts.storeit.config.CategoryRepo;
-import com.localghosts.storeit.config.ProductRepo;
-import com.localghosts.storeit.config.SellerRepo;
 import com.localghosts.storeit.model.Cart;
 import com.localghosts.storeit.model.Category;
 import com.localghosts.storeit.model.Product;
 import com.localghosts.storeit.model.ProductResponse;
 import com.localghosts.storeit.model.Seller;
+import com.localghosts.storeit.repo.CartRepo;
+import com.localghosts.storeit.repo.CategoryRepo;
+import com.localghosts.storeit.repo.ProductRepo;
+import com.localghosts.storeit.repo.SellerRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

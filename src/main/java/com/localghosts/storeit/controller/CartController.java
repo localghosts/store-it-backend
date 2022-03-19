@@ -4,12 +4,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.localghosts.storeit.config.BuyerRepo;
-import com.localghosts.storeit.config.CartRepo;
-import com.localghosts.storeit.config.OrderItemRepo;
-import com.localghosts.storeit.config.OrderRepo;
-import com.localghosts.storeit.config.ProductRepo;
-import com.localghosts.storeit.config.StoreRepo;
 import com.localghosts.storeit.model.Buyer;
 import com.localghosts.storeit.model.Cart;
 import com.localghosts.storeit.model.CartResponse;
@@ -17,6 +11,12 @@ import com.localghosts.storeit.model.Order;
 import com.localghosts.storeit.model.OrderItem;
 import com.localghosts.storeit.model.Product;
 import com.localghosts.storeit.model.Store;
+import com.localghosts.storeit.repo.BuyerRepo;
+import com.localghosts.storeit.repo.CartRepo;
+import com.localghosts.storeit.repo.OrderItemRepo;
+import com.localghosts.storeit.repo.OrderRepo;
+import com.localghosts.storeit.repo.ProductRepo;
+import com.localghosts.storeit.repo.StoreRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

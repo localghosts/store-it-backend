@@ -1,4 +1,4 @@
-package com.localghosts.storeit.config;
+package com.localghosts.storeit.repo;
 
 import com.localghosts.storeit.model.Store;
 

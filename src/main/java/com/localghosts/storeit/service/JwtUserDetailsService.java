@@ -2,10 +2,10 @@ package com.localghosts.storeit.service;
 
 import java.util.ArrayList;
 
-import com.localghosts.storeit.config.BuyerRepo;
-import com.localghosts.storeit.config.SellerRepo;
 import com.localghosts.storeit.model.Buyer;
 import com.localghosts.storeit.model.Seller;
+import com.localghosts.storeit.repo.BuyerRepo;
+import com.localghosts.storeit.repo.SellerRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;

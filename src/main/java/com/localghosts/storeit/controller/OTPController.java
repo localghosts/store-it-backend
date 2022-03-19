@@ -5,9 +5,9 @@ import java.util.Objects;
 
 import javax.mail.MessagingException;
 
-import com.localghosts.storeit.config.OTPRepo;
 import com.localghosts.storeit.model.EmailRequest;
 import com.localghosts.storeit.model.OTP;
+import com.localghosts.storeit.repo.OTPRepo;
 import com.localghosts.storeit.service.EmailingService;
 import com.localghosts.storeit.service.RandomString;
 

@@ -1,4 +1,4 @@
-package com.localghosts.storeit.config;
+package com.localghosts.storeit.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

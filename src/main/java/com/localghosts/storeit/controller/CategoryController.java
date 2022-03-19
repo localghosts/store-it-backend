@@ -3,10 +3,10 @@ package com.localghosts.storeit.controller;
 import java.util.List;
 import java.util.Objects;
 
-import com.localghosts.storeit.config.CategoryRepo;
-import com.localghosts.storeit.config.StoreRepo;
 import com.localghosts.storeit.model.Category;
 import com.localghosts.storeit.model.Store;
+import com.localghosts.storeit.repo.CategoryRepo;
+import com.localghosts.storeit.repo.StoreRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

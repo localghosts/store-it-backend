@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
-import com.localghosts.storeit.config.JwtTokenUtil;
-import com.localghosts.storeit.config.OTPRepo;
-import com.localghosts.storeit.config.SellerRepo;
-import com.localghosts.storeit.config.StoreRepo;
 import com.localghosts.storeit.model.JwtResponse;
 import com.localghosts.storeit.model.OTP;
 import com.localghosts.storeit.model.Seller;
 import com.localghosts.storeit.model.SellerSignup;
 import com.localghosts.storeit.model.SellerSignupResponse;
 import com.localghosts.storeit.model.Store;
+import com.localghosts.storeit.repo.OTPRepo;
+import com.localghosts.storeit.repo.SellerRepo;
+import com.localghosts.storeit.repo.StoreRepo;
+import com.localghosts.storeit.security.JwtTokenUtil;
 
 @RestController
 @CrossOrigin(origins = "*")

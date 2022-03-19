@@ -3,14 +3,14 @@ package com.localghosts.storeit.controller;
 import java.util.List;
 import java.util.Objects;
 
-import com.localghosts.storeit.config.BuyerRepo;
-import com.localghosts.storeit.config.OrderRepo;
-import com.localghosts.storeit.config.SellerRepo;
-import com.localghosts.storeit.config.StoreRepo;
 import com.localghosts.storeit.model.Buyer;
 import com.localghosts.storeit.model.Order;
 import com.localghosts.storeit.model.Seller;
 import com.localghosts.storeit.model.Store;
+import com.localghosts.storeit.repo.BuyerRepo;
+import com.localghosts.storeit.repo.OrderRepo;
+import com.localghosts.storeit.repo.SellerRepo;
+import com.localghosts.storeit.repo.StoreRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
