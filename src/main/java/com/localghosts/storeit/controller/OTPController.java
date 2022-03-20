@@ -39,8 +39,10 @@ public class OTPController {
 		if (email == null)
 			throw new Error("Email is null");
 
+		
 		if (otpRepo.findByEmail(email) != null)
-			throw new Error("OTP Already Sent");
+			if (otpRepo.findByEmail(email).getUsed() != true)
+				throw new Error("OTP Already Sent");
 
 		OTP OTPEntry = new OTP(rnd.generateOTP(6), email, false);
 
