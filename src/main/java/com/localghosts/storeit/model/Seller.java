@@ -23,7 +23,7 @@ public class Seller implements Serializable {
 	@Column(name = "email")
 	private String email;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	//@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "password")
 	private String password;
 

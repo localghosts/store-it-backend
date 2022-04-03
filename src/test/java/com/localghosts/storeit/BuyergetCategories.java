@@ -84,7 +84,7 @@ public class BuyergetCategories{
 	        
 	        JSONObject myobj = new JSONObject(body);
 	        System.out.println(myobj.getString("token"));
-	        System.out.println(myobj.getString("storeSlug"));
+	        //System.out.println(myobj.getString("storeSlug"));
 	        String bearerString = myobj.getString("token") ; 
 	        String storeslug = "goodfoods";
 	        //String bearerString = result.getBody().get

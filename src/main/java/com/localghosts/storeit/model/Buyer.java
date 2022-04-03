@@ -32,7 +32,7 @@ public class Buyer implements Serializable {
 		this.password = password;
 	}
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	//@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "password")
 	private String password;
 
