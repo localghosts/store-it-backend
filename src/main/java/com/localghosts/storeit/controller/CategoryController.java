@@ -3,12 +3,18 @@ package com.localghosts.storeit.controller;
 import java.util.List;
 import java.util.Objects;
 
+import com.localghosts.storeit.model.Cart;
 import com.localghosts.storeit.model.Category;
+import com.localghosts.storeit.model.Product;
+import com.localghosts.storeit.model.Seller;
 import com.localghosts.storeit.model.Store;
+import com.localghosts.storeit.repo.CartRepo;
 import com.localghosts.storeit.repo.CategoryRepo;
+import com.localghosts.storeit.repo.SellerRepo;
 import com.localghosts.storeit.repo.StoreRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +33,12 @@ public class CategoryController {
 
 	@Autowired
 	StoreRepo storeRepo;
+
+	@Autowired
+	SellerRepo sellerRepo;
+
+	@Autowired
+	CartRepo cartRepo;
 
 	@GetMapping("/store/{storeslug}/category")
 	public List<Category> getCategories(@PathVariable String storeslug) {
@@ -54,9 +66,27 @@ public class CategoryController {
 	}
 
 	@DeleteMapping("/store/{storeslug}/category/{categoryid}")
-	public void deleteCategory(@PathVariable("categoryid") Long categoryid) {
+	public void deleteCategory(@PathVariable("categoryid") Long categoryid, Authentication auth) {
+		Seller seller = sellerRepo.findByEmail(auth.getName());
+		if (seller == null)
+			throw new Error("You are not a seller");
 		Category category = categoryRepo.findByCategoryID(categoryid);
+		if (category == null)
+			throw new Error("Category does not exist");
+		if (!category.getStore().getSeller().equals(seller))
+			throw new Error("You are not the owner of this store");
+		List<Product> products = category.getProducts();
+		deleteCartByProduct(products);
 		categoryRepo.delete(category);
+	}
+
+	private void deleteCartByProduct(List<Product> products) {
+		for (Product product : products) {
+			List<Cart> carts = cartRepo.findByProduct(product);
+			for (Cart cart : carts) {
+				cartRepo.delete(cart);
+			}
+		}
 	}
 
 	@PutMapping("/store/{storeslug}/category/{categoryid}")
