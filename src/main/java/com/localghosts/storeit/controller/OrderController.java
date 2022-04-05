@@ -3,8 +3,11 @@ package com.localghosts.storeit.controller;
 import java.util.List;
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.localghosts.storeit.model.Buyer;
 import com.localghosts.storeit.model.Order;
+import com.localghosts.storeit.model.OrderItem;
 import com.localghosts.storeit.model.Seller;
 import com.localghosts.storeit.model.Store;
 import com.localghosts.storeit.repo.BuyerRepo;
@@ -12,6 +15,8 @@ import com.localghosts.storeit.repo.OrderRepo;
 import com.localghosts.storeit.repo.SellerRepo;
 import com.localghosts.storeit.repo.StoreRepo;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,9 +43,43 @@ public class OrderController {
 	SellerRepo sellerRepo;
 
 	@GetMapping("/store/{storeslug}/orders")
-	public List<Order> getOrders(@PathVariable("storeslug") String storeslug) {
+	public List<Order> getOrders(@PathVariable("storeslug") String storeslug, Authentication auth) {
+		return fetchOrders(storeslug, auth.getName());
+	}
+
+	private List<Order> fetchOrders(String storeslug, String email) throws Error {
+		Seller seller = sellerRepo.findByEmail(email);
 		Store store = storeRepo.findByStoreslug(storeslug);
-		return orderRepo.findByStore(store);
+		if (seller != null && store != null && store.getSeller().getEmail() == seller.getEmail()) {
+			return orderRepo.findByStore(store);
+		}
+		throw new Error("Unauthorized");
+	}
+
+	@GetMapping("/store/{storeslug}/orderscsv")
+	public void getOrdersCSV(@PathVariable("storeslug") String storeslug, Authentication auth,
+			HttpServletResponse response) {
+		List<Order> orders = fetchOrders(storeslug, auth.getName());
+		response.setContentType("text/csv");
+		response.setHeader("Content-Disposition", "attachment; filename=\"orders.csv\"");
+		try (CSVPrinter csvPrinter = new CSVPrinter(response.getWriter(), CSVFormat.DEFAULT)) {
+			csvPrinter.printRecord("Order ID", "Order Date",
+					"Product Name", "Product price", "Quantity",
+					"Buyer email", "Buyer Phone",
+					"Shipping Address", "Status");
+			for (Order order : orders) {
+				List<OrderItem> items = order.getOrderItems();
+				for (OrderItem item : items) {
+					csvPrinter.printRecord(order.getOrderID(), order.getOrderDate(),
+							item.getProductName(), item.getProductPrice(), item.getQuantity(),
+							order.getBuyer().getEmail(), order.getPhoneNo(),
+							order.getAddress(), order.getStatus());
+				}
+			}
+		} catch (Exception e) {
+			throw new Error("CSV" + e.getMessage(), e);
+		}
+
 	}
 
 	@PutMapping("/store/{storeslug}/order/{orderid}")
