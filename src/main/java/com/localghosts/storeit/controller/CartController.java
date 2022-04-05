@@ -107,14 +107,12 @@ public class CartController {
 			throw new Error("Invalid request");
 
 		List<Cart> cartlist = cartRepo.findByBuyerAndStore(buyer, store);
-		
+
 		if (cartlist.isEmpty())
 			throw new Error("Cart is empty");
 
 		List<OrderItem> orderItems = cartlist.stream().map(cart -> orderItemRepo.save(new OrderItem(cart)))
 				.collect(Collectors.toList());
-
-		
 
 		Order order = new Order(buyer, store, orderrequest.getAddress(), orderrequest.getPhoneNo(), orderItems);
 
