@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+//Category should support Add, Delete and Toggle. These will be used by the seller
 @RestController
 @CrossOrigin(origins = "*")
 public class CategoryController {

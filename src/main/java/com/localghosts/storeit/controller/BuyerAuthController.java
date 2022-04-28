@@ -18,6 +18,7 @@ import com.localghosts.storeit.repo.OTPRepo;
 import com.localghosts.storeit.security.JwtTokenUtil;
 import com.localghosts.storeit.model.BuyerSignup;
 
+//The Buyer Signup and Login functionality.
 @RestController
 @CrossOrigin(origins = "*")
 public class BuyerAuthController {
@@ -46,7 +47,8 @@ public class BuyerAuthController {
 			throw new Exception("OTP not found or already used");
 		if (otpentry.getOtp().equals(signup.getOtp()) == false)
 			throw new Exception("OTP not valid");
-
+		
+		//Encypt the user password and then save to database.
 		String encryptedPassword = bCryptPasswordEncoder.encode(signup.getPassword());
 
 		Buyer buyer = new Buyer(signup.getEmail(), signup.getName(), encryptedPassword);
@@ -69,6 +71,7 @@ public class BuyerAuthController {
 		if (buyerFromRepo == null)
 			throw new Exception("Buyer not found");
 
+		//Compare the hash of the password.
 		if (bCryptPasswordEncoder.matches(buyer.getPassword(), buyerFromRepo.getPassword()) == false)
 			throw new Exception("Password not valid");
 
@@ -76,7 +79,8 @@ public class BuyerAuthController {
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
-
+	
+	//Ensure that the object is not Null
 	private void validateBuyerLoginBody(Buyer buyer) throws Exception {
 		if (Objects.isNull(buyer.getEmail()))
 			throw new Exception("Email not found");

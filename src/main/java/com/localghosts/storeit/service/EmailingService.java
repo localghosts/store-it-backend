@@ -20,6 +20,7 @@ import com.localghosts.storeit.model.EmailRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+//Email will used to send OTP at Signup
 @Component
 public class EmailingService {
 

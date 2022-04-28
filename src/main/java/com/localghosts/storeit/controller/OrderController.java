@@ -56,6 +56,7 @@ public class OrderController {
 		throw new Error("Unauthorized");
 	}
 
+	//Helper function to format orders as CSV. Take care of Expections.
 	@GetMapping("/store/{storeslug}/orderscsv")
 	public void getOrdersCSV(@PathVariable("storeslug") String storeslug, Authentication auth,
 			HttpServletResponse response) {
@@ -81,7 +82,8 @@ public class OrderController {
 		}
 
 	}
-
+	
+	//Update status as requested by the seller.
 	@PutMapping("/store/{storeslug}/order/{orderid}")
 	public void updateStatus(@PathVariable("orderid") Long orderid,
 			@RequestBody Order updatedOrder, Authentication auth) {
@@ -92,6 +94,7 @@ public class OrderController {
 		Order order = orderRepo.findByOrderID(orderid);
 		if (order == null)
 			throw new Error("Order not found");
+		//Only seller has the authorisation for this change
 		if (!order.getStore().getSeller().equals(seller))
 			throw new Error("You are not authorized to update this order");
 

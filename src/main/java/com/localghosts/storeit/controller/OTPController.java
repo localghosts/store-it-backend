@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+//OTP will be generated at Signup attempt. This controller will use the Email utility.
 @RestController
 @CrossOrigin(origins = "*")
 public class OTPController {

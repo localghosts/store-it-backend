@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
+//EmailConfig required to send OTP
 @Configuration
 public class EmailConfig implements Serializable {
 

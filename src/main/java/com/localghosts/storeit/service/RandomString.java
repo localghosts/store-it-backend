@@ -2,6 +2,7 @@ package com.localghosts.storeit.service;
 
 import org.springframework.stereotype.Component;
 
+//This utility will be used for OTP generation.
 @Component
 public class RandomString {
 

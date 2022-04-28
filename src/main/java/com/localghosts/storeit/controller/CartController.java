@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+//Cart functionality will contain product and quantity.
+//Entry links will be /store/{storeslug}/cart and /store/{storeslug}/checkout
 @RestController
 @CrossOrigin(origins = "*")
 public class CartController {
