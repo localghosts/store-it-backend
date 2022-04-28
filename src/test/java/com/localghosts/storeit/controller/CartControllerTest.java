@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class SellerAuthControllerTest {
+public class CartControllerTest {
 
 	@Autowired
-	private SellerAuthController controller;
+	private CartController controller;
 
 	@Test
 	public void contextLoads() throws Exception {
